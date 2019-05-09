@@ -55,6 +55,8 @@ export class Preprocessor {
     hand.map( card => {
       numeric.push(parseInt(card) || cardEnum[card])
     })
+    numeric = numeric.sort( (a,b) =>  a - b).reverse()
+    console.log(numeric)
     return numeric;
   }
 
@@ -70,8 +72,8 @@ export class Preprocessor {
         }
       }
       let hi = new HistogramItem(value, count)
-      console.log(hi.value, hi.quantity)
-      histogram.push(new HistogramItem(value, count));
+      // console.log(hi.value, hi.quantity)
+      // histogram.push(new HistogramItem(value, count));
       hand = hand.filter( c => c !== value);
     }
     
