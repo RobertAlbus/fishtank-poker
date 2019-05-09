@@ -16,7 +16,7 @@ const output        = new OutputService(state);
 let mockdata = 'TTT99 23456'
 input.programmaticInput([mockdata, mockdata])
 preprocessor.processAll();
-evaluator.computeWinners();
+evaluator.evaluateAll();
 
 
 output.display();
