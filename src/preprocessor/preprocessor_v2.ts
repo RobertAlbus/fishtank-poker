@@ -13,7 +13,7 @@ export class Preprocessor {
     this.batchStringToHistograms(this.state.strings)
   }
 
-  // creates an array of sets of histograms
+  // creates an array of sets of sorted histograms
   batchStringToHistograms(strings: string[]): Histogram[][] {
     let histograms: Histogram[][] = [];
   
@@ -24,7 +24,7 @@ export class Preprocessor {
     return histograms;
   }
 
-  // creates one histogram per hand in the string
+  // creates one sorted histogram per hand in the string
   stringToHistograms(input: string): Histogram[] {
 
     let hands = this.stringToHands(input);
@@ -34,8 +34,9 @@ export class Preprocessor {
       let cards = this.handToCards(hand);
       let numeric = this.cardsToNumeric(cards);
       let histogram = this.numericToHistogram(numeric);
+      let histogramSorted = this.sortHistogram(histogram);
   
-      histograms.push(histogram)
+      histograms.push(histogramSorted)
     })
   
     return histograms
@@ -62,10 +63,6 @@ export class Preprocessor {
       numeric.push(parseInt(card) || cardEnum[card])
     })
 
-    // !!! IMPORTANT !!!
-    // later actions rely on descending order   -- TODO refactor this into an explicit method
-    numeric = numeric.sort( (a,b) =>  a - b).reverse()
-
     return numeric;
   }
 
@@ -84,12 +81,24 @@ export class Preprocessor {
       histogram.push(new HistogramItem(value, quantity));
       hand = hand.filter( c => c !== value);
     
-    // TODO should be sorting in descending order by histogram quantity
-    // with a secondary sort by descending value for frequency ties
     }
-    
+
     return histogram
+  }
+
+  // !!! IMPORTANT !!!
+
+  // later actions assume 
+  // 1. sort descending: histogram.quantity
+  // 2. if tied => sort descending: histogram.value
+  sortHistogram(histogram: Histogram): Histogram {
+
+    return histogram.sort( (a, b) => {
+      if (a.quantity === b.quantity) {
+        return b.value - a.value
+      }
+      return b.quantity - a.quantity
+    })
   }
   
 }
-
