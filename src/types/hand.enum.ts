@@ -1,11 +1,12 @@
 export enum handEnum {
-  'HIGHCARD'      = 0,
-  'PAIR'          = 1,
-  'TWOPAIR'       = 2,
-  'THREEOFAKIND'  = 3,
-  'STRAIGHT'      = 4,
-  'FULLHOUSE'     = 5,
-  'FOUROFAKIND'   = 6,
+  'CHEATER'       = 0,
+  'HIGHCARD'      = 1,
+  'PAIR'          = 2,
+  'TWOPAIR'       = 3,
+  'THREEOFAKIND'  = 4,
+  'STRAIGHT'      = 5,
+  'FULLHOUSE'     = 6,
+  'FOUROFAKIND'   = 7,
 }
 
 export enum cardEnum {
