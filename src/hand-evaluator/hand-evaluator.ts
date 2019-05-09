@@ -20,7 +20,7 @@ export class HandEvaluator {
 
     return winners;
   }
-  
+
   public computeWinner(histograms: Histogram[]): string {
     let winner: string = "";
     let enums: handEnum[] = [];
@@ -92,31 +92,21 @@ export class HandEvaluator {
   compareHistograms() {
 
   }
-  playerIndexToPlayerLetter(n: number): string {
-    let a: number = 97; // ASCII offset to a from 1
-    if (n < 26) {
-      return String.fromCharCode(n + a);
-    }
-    if (26 < n) {
-      let nn: number = n/26
-      return String.fromCharCode(nn + a - 1) + String.fromCharCode( (n % 26 - 1) + a);
-    }
+  playerIndexToPlayerLetter(...args: number[]): string {
+
+    let output: string = "";
+    let a: number = 97; // ASCII offset to 'a' from 1
+    args.map( arg => {
+      if (arg < 26) {
+        output += String.fromCharCode(arg + a);
+      }
+      if (26 < arg) {
+        let nn: number = arg/26;
+        output +=  "|" + String.fromCharCode(nn + a - 1) + String.fromCharCode( (arg % 26 - 1) + a); + "|";
+      }
+    } )
+
+    return output;
   }
 
 }
-
-//debug
-let s = new StateMachine()
-let x = new HandEvaluator(s)
-let hist = [{value: 2, quantity: 3},{value: 3, quantity: 2}]
-
-let sig = x.histogramToSignature(hist)
-let enu = x.signatureToHandEnum(sig, hist)
-console.log("histogram: ", hist)
-console.log("signature: ", sig)
-console.log("enum: ", hand[enu], enu)
-
-console.log(x.playerIndexToPlayerLetter(0))
-console.log(x.playerIndexToPlayerLetter(66))
-
-
