@@ -2,6 +2,8 @@
 ----------------
 ## 19 05 07
 
+| HOURS | description |
+|-------|------------:|
 | 2.0 H | explore the problem-space |
 | 2.0 H | create input module |
 | 2.0 H | discover and implement architectural patterns |
@@ -19,7 +21,8 @@
 
 ----------------
 ## 19 05 08
-
+| HOURS | description |
+|-------|------------:|
 | 0.5 H | create state machine |
 | 0.5 H | solidify program modules and architecture |
 | 4.0 H | create preprocessing engine v1 |
