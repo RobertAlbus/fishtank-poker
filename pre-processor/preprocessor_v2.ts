@@ -1,5 +1,5 @@
-import { cardEnum } from "../types/hand.enum";
-import { Histogram, HistogramItem } from '../types/histogram'
+import { cardEnum } from "../src/types/hand.enum";
+import { Histogram, HistogramItem } from '../src/types/histogram'
 import { StateMachine } from "state-module/state-machine";
 
 export class Preprocessor {

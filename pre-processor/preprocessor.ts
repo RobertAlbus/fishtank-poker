@@ -1,4 +1,4 @@
-import { cardEnum } from "../types/hand.enum";
+import { cardEnum } from "../src/types/hand.enum";
 
 ////////
 // preprocessing pipeline 

@@ -2,7 +2,7 @@ import { StateMachine } from './state-module/state-machine';
 import { InputService } from './ui-module/input.service';
 import { HandEvaluator } from './hand-evaluator/hand-evaluator';
 import { OutputService } from './ui-module/output.service';
-import { Preprocessor } from './hand-evaluator/preprocessor_v2';
+import { Preprocessor } from '../pre-processor/preprocessor_v2';
 
 const state         = new StateMachine();
 
