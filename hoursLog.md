@@ -7,7 +7,7 @@
 | 2.0 H | explore the problem-space |
 | 2.0 H | create input module |
 | 2.0 H | discover and implement architectural patterns |
-| --    |  |
+|-------|  |
 | 6.0H  | total |
 
 ### key take-aways
@@ -29,7 +29,7 @@
 | 0.5 H | creating types and aliases |
 | 0.5 H | create preprocessing engine v2 |
 | 2.0 H | begin hand comparator agorithm |
-| --    | |
+|-------| |
 | 8.0 H | total |
 
 ### key take-aways
