@@ -3,23 +3,25 @@ from string
     '22345 TTTKA'
 
 into hands
-stringsToHands() {...}
+stringsToHands()
 
     [ '22345', 'TTTKA' ],
 
 
 into hands with discreet cards
-handsToCards() {...}
+handsToCards()
 
-    [ [2, 2, 3, 4, 5], [T, T, T, K, A] ]
+    [ ['2', '2', '3', '4', '5'], 
+      ['T', 'T', 'T', 'K', 'A'] ]
 
-into cards by numeric value
-cardsToNumeric() {...}
+into cards by numeric value,sorted descending
+cardsToNumeric()
 
-    [ [2, 2, 3, 4, 5], [10, 10, 10, 13, 14] ], 
+    [ [ 5,  4,  3,  2,  2], 
+      [14, 13, 10, 10, 10] ], 
 
 into histograms
-numericToHistograms() {...}
+numericToHistograms()
 
     [
         { value: 2, quantity: 2},
