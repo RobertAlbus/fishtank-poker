@@ -71,8 +71,8 @@ export class Preprocessor {
         }
       }
       let hi = new HistogramItem(value, count)
-      // console.log(hi.value, hi.quantity)
-      // histogram.push(new HistogramItem(value, count));
+      console.log(hi.value, hi.quantity)
+      histogram.push(new HistogramItem(value, count));
       hand = hand.filter( c => c !== value);
     }
     
