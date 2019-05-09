@@ -24,13 +24,13 @@ into histograms
 numericToHistograms()
 
     [
-        { value: 2, quantity: 2},
-        { value: 3, quantity: 1},
-        { value: 4, quantity: 1},
         { value: 5, quantity: 1}
+        { value: 4, quantity: 1},
+        { value: 3, quantity: 1},
+        { value: 2, quantity: 2},
     ],
     [
-        { value: 10, quantity: 3},
-        { value: 13, quantity: 1},
         { value: 14, quantity: 1},
+        { value: 13, quantity: 1},
+        { value: 10, quantity: 3},
     ]
