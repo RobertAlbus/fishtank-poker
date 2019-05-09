@@ -12,11 +12,15 @@ export class HandEvaluator {
     this.state.winners = this.computeWinners(this.state.histograms)
   }
 
+// assumes histogram entries are sorted in descending order:
+  // primary sort: frequency
+  // secondary sort: value
   public computeWinners(histograms: Histogram[][]): string[] {
     let winners: string[] = [];
 
     return winners;
   }
+  
   public computeWinner(histograms: Histogram[]): string {
     let winner: string = "";
     let enums: handEnum[] = [];
@@ -31,9 +35,6 @@ export class HandEvaluator {
     return winner;
   }
 
-  // assumes histogram entries are sorted in descending order:
-  // primary sort: frequency
-  // secondary sort: value
   histogramToSignature(histogram: Histogram): string {
     let signature: string = ""
     histogram.map( item => {
