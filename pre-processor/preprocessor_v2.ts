@@ -24,7 +24,7 @@ export class Preprocessor {
   }
 
   stringToHistograms(input: string): Histogram[] {
-    // discreet hands from one string
+
     let hands = this.stringToHands(input);
     let histograms: Histogram[] = []
   
@@ -52,10 +52,12 @@ export class Preprocessor {
   
   cardsToNumeric(hand: string[]): number[] {
     let numeric: number[] = [];
+
     hand.map( card => {
       numeric.push(parseInt(card) || cardEnum[card])
     })
     numeric = numeric.sort( (a,b) =>  a - b).reverse()
+
     return numeric;
   }
 
@@ -76,5 +78,5 @@ export class Preprocessor {
     
     return histogram
   }
-
+  
 }
