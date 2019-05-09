@@ -1,15 +1,12 @@
+import { Histogram } from "types/histogram";
+
 export class StateMachine {
-  private rounds: string[];
+  strings: string[];
+  histograms: Histogram[][];
 
   constructor() {
-    this.rounds = []
-  }
-
-  save(data: string[]) {
-    this.rounds = data;
-  }
-  get():string[] {
-    return this.rounds
+    this.strings = []
+    this.histograms = []
   }
 
 }
