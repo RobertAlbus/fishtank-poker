@@ -3,7 +3,7 @@
 ## 19 05 07
 
 | HOURS | description |
-|-------|------------:|
+|-------|-------------|
 | 2.0 H | explore the problem-space |
 | 2.0 H | create input module |
 | 2.0 H | discover and implement architectural patterns |
