@@ -56,7 +56,6 @@ export class Preprocessor {
       numeric.push(parseInt(card) || cardEnum[card])
     })
     numeric = numeric.sort( (a,b) =>  a - b).reverse()
-    console.log(numeric)
     return numeric;
   }
 
