@@ -1,6 +1,6 @@
 import { cardEnum } from "../types/hand.enum";
 import { Histogram, HistogramItem } from '../types/histogram'
-import { StateMachine } from "state-module/state-machine";
+import { StateMachine } from "../state-module/state-machine";
 
 export class Preprocessor {
 
@@ -83,6 +83,9 @@ export class Preprocessor {
       }
       histogram.push(new HistogramItem(value, quantity));
       hand = hand.filter( c => c !== value);
+    
+    // TODO should be sorting in descending order by histogram quantity
+    // with a secondary sort by descending value for frequency ties
     }
     
     return histogram
