@@ -15,8 +15,12 @@ export class InputService {
     this.save(rounds);
   }
 
+  public programmaticInput(input: string[]) {
+    this.state.strings = input;
+  }
+
   private save(data: string[]) {
-    this.state.save(data)
+    this.state.strings = data
   }
   
   private getNumberOfRounds():number {
