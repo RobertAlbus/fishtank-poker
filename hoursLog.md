@@ -48,14 +48,19 @@
 | HOURS | description |
 |-------|-------------|
 | 1.5 H | bugfixes for preprocessor |
-| 0.5 H | putting together this log |
-| 4.0 H | developing hand comparator algorithm |
-
+| 0.5 H | put together this log |
+| 4.0 H | develop hand comparator algorithm |
+| 0.5 H | implement output module |
+| 1.0 H | bug fixes for hand comparator |
 |-------| |
-| 6.0 H | total |
+| 7.5 H | total |
 
 ### key take-aways
 * when stuck on an algorithm:
   * what's our input?
   * what do we want for output?
   * what are the steps go from a => b?
+* I am doing this the wrong way!
+  * should generate a ranked table of all possible hands (sorted by card)
+  * 13^5 possible combinations
+  * would enable easy lookup even with wildcards
