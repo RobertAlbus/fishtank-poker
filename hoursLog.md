@@ -62,5 +62,6 @@
   * what are the steps go from a => b?
 * I am doing this the wrong way!
   * should generate a ranked table of all possible hands (sorted by card)
-  * 13^5 possible combinations
+  * (13*4)^5 possible combinations 
+  * ~760mb table size ( 2 bytes * 3.8e8 )
   * would enable easy lookup even with wildcards
