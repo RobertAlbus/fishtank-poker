@@ -12,15 +12,11 @@ export class InputService {
   public getUserInput() {
     let quantity = this.getNumberOfRounds();
     let rounds = this.getRounds(quantity);
-    this.save(rounds);
+    this.state.strings = rounds;
   }
 
   public programmaticInput(input: string[]) {
     this.state.strings = input;
-  }
-
-  private save(data: string[]) {
-    this.state.strings = data
   }
   
   private getNumberOfRounds():number {
