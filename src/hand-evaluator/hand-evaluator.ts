@@ -18,32 +18,128 @@ export class HandEvaluator {
   public computeWinners(histograms: Histogram[][]): string[] {
     let winners: string[] = [];
 
+    // map histograms into computer winner
+
     return winners;
   }
 
   public computeWinner(histograms: Histogram[]): string {
-    let winner: string = "";
+    
     let enums: handEnum[] = [];
-
     histograms.map( histogram => {
+      // generate signature
       let signature = this.histogramToSignature(histogram)
+      // determine enum from signature
       enums.push(this.signatureToHandEnum(signature, histogram))
     })
 
+    let winnerIndex: number[] = 
+      this.getWinnerFromEnums(enums) || this.getWinnerFromHistograms(histograms, enums);
 
-
+    let winner: string = this.playerIndexToPlayerLetter(...winnerIndex);
+    
     return winner;
   }
 
+  getWinnerFromEnums(enums: handEnum[]): number[] {
+
+    let highestHand = Math.max(...enums)
+    let quantityOfHighestHand = enums.filter( e => e === highestHand).length
+
+    // if there is 1 obvious winner based on hand rank alone
+    if (quantityOfHighestHand === 1) {
+      return [enums.indexOf(highestHand)]
+    }
+    return [];
+  }
+
+  // used to determine who wins or ties when
+  // there is no obvious winner that can be determined by hand rank alone
+  getWinnerFromHistograms(histograms: Histogram[], enums: handEnum[]): number[] {
+
+    // determine highest handEnum value present
+    // aka the type of hand that wins
+    let highestHand = Math.max(...enums)
+
+    // create filtered list of: histograms tied by signature && their index
+    let contenders: [{
+      index: number,
+      handRank: handEnum,
+      histogram: Histogram
+    }];
+
+    enums.map( (e, index) => {
+      if (e === highestHand) {
+        if (contenders[0]) {
+          // if initialized => push
+          contenders.push({
+            index: index, 
+            handRank: enums[index], 
+            histogram: histograms[index]
+          });
+        } else {
+          // else => initialize
+          contenders = [ {
+            index: index, 
+            handRank: enums[index], 
+            histogram: histograms[index]
+          } ]
+        }
+      }
+    })
+
+    // eliminate contenders with lowest card rank for a given histogram position
+    // until 1 left or all positions evaluate to a tie
+
+    // outer for loop iterates /through/ histogram
+    let histogramDepth = contenders[0].histogram.length
+    for (let depth = 0; depth < histogramDepth; ++depth) {
+      let highestCardValue: number = 0;
+
+      // inner map iterates across histograms
+      //    finds highest card value
+      contenders.map ( c => {
+        let currentValue = c.histogram[depth].value
+        if (currentValue > highestCardValue) {
+          highestCardValue = currentValue
+        }
+      })
+
+      // filter contenders to exclude contenders with 
+      // card value lower than highest for this given index
+      contenders.filter( c => {
+        let currentValue = c.histogram[depth].value;
+        return currentValue === highestCardValue
+      })
+
+      // short circuit
+      if (contenders.length === 1) {
+        break
+      }
+    }
+
+    // map the indexes of winner(s) to array for returning
+    let winners: number[] = [];
+    contenders.map( c => {
+      winners.push(c.index)
+    })
+
+    return winners
+  }
+
+
   histogramToSignature(histogram: Histogram): string {
+
     let signature: string = ""
     histogram.map( item => {
       signature += item.quantity.toString()
     })
+
     return signature.trim();
   }
 
   signatureToHandEnum(signature: string, histogram: Histogram): handEnum {
+
     switch(signature) {
       case '41': {
         return hand.FOUROFAKIND
@@ -80,6 +176,7 @@ export class HandEvaluator {
   }
 
   compareEnums(enums: handEnum[]) {
+
     let winnersIndexes: number[] = [];
     let best = enums.sort()[0]
 
@@ -89,9 +186,7 @@ export class HandEvaluator {
       }
     }
   }
-  compareHistograms() {
 
-  }
   playerIndexToPlayerLetter(...args: number[]): string {
 
     let output: string = "";
