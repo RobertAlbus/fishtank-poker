@@ -12,13 +12,15 @@ export class HandEvaluator {
     this.state.winners = this.computeWinners(this.state.histograms)
   }
 
-// assumes histogram entries are sorted in descending order:
+  // assumes histogram entries are sorted in descending order:
   // primary sort: frequency
   // secondary sort: value
-  public computeWinners(histograms: Histogram[][]): string[] {
+  public computeWinners(rounds: Histogram[][]): string[] {
     let winners: string[] = [];
 
-    // map histograms into computer winner
+    rounds.map( round => {
+      winners.push(this.computeWinner(round))
+    })
 
     return winners;
   }
