@@ -13,10 +13,9 @@ const output        = new OutputService(state);
 
 //input.getUserInput();
 
-let mockdata = 'TTT99 23456'
-input.programmaticInput([mockdata, mockdata])
+let mockdata = 'TTT99 AAAKK'
+input.programmaticInput([mockdata])
 preprocessor.processAll();
 evaluator.evaluateAll();
-
-
-output.display();
+output.printAll();
+// console.log(state)

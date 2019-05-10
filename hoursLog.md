@@ -51,7 +51,7 @@
 | 0.5 H | put together this log |
 | 4.0 H | develop hand comparator algorithm |
 | 0.5 H | implement output module |
-| 1.0 H | bug fixes for hand comparator |
+| 1.5 H | bug fixes for hand comparator |
 |-------| |
 | 7.5 H | total |
 
