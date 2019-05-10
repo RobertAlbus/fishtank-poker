@@ -4,28 +4,34 @@ import { handEnum as hand, handEnum} from "../types/hand.enum";
 
 export class HandEvaluator {
 
+  // assumes histogram entries are sorted in descending order:
+  // primary sort: frequency
+  // secondary sort: value
+
   constructor(private state: StateMachine) {
 
   }
 
   public evaluateAll(): void {
-    this.state.winners = this.computeWinners(this.state.histograms)
+    let results = this.computeWinners(this.state.histograms)
+    this.state.winnerStrings = results.winners;
+    this.state.enums = results.enums;
   }
 
-  // assumes histogram entries are sorted in descending order:
-  // primary sort: frequency
-  // secondary sort: value
-  public computeWinners(rounds: Histogram[][]): string[] {
+  public computeWinners(rounds: Histogram[][]): {winners: string[], enums: handEnum[][]} {
     let winners: string[] = [];
+    let enums: handEnum[][] = []
 
     rounds.map( round => {
-      winners.push(this.computeWinner(round))
+      let result = this.computeWinner(round);
+      winners.push(result.winner);
+      enums.push(result.enums);
     })
 
-    return winners;
+    return {winners, enums};
   }
 
-  public computeWinner(histograms: Histogram[]): string {
+  public computeWinner(histograms: Histogram[]): { enums: handEnum[], winner: string } {
     
     let enums: handEnum[] = [];
     histograms.map( histogram => {
@@ -35,12 +41,17 @@ export class HandEvaluator {
       enums.push(this.signatureToHandEnum(signature, histogram))
     })
 
-    let winnerIndex: number[] = 
-      this.getWinnerFromEnums(enums) || this.getWinnerFromHistograms(histograms, enums);
+    let winnerIndex: number[];
+    if (this.getWinnerFromEnums(enums).length > 0) {
+      winnerIndex = this.getWinnerFromEnums(enums)
+    } else {
+      winnerIndex = this.getWinnerFromHistograms(histograms, enums);
+    }
+
 
     let winner: string = this.playerIndexToPlayerLetter(...winnerIndex);
     
-    return winner;
+    return { enums: enums, winner: winner};
   }
 
   getWinnerFromEnums(enums: handEnum[]): number[] {
@@ -63,16 +74,21 @@ export class HandEvaluator {
     // aka the type of hand that wins
     let highestHand = Math.max(...enums)
 
+    let contenders: {
+      index?: number,
+      handRank?: handEnum,
+      histogram?: Histogram
+    }[];
     // create filtered list of: histograms tied by signature && their index
-    let contenders: [{
-      index: number,
-      handRank: handEnum,
-      histogram: Histogram
-    }];
-
     enums.map( (e, index) => {
+
+      // check for handEnum.STRAIGHT
+      // if histogram[0] === 14 && histogram[1] === 2
+      // => histogram.push(histogram.shift)
+      // histogram[4].value = 1
+
       if (e === highestHand) {
-        if (contenders[0]) {
+        if (contenders !== undefined ) {
           // if initialized => push
           contenders.push({
             index: index, 
@@ -92,26 +108,32 @@ export class HandEvaluator {
 
     // eliminate contenders with lowest card rank for a given histogram position
     // until 1 left or all positions evaluate to a tie
+    // ie two hands of the same type, the higher card wins
 
-    // outer for loop iterates /through/ histogram
+    // outer for loop iterates /through/ histograms depthwise
     let histogramDepth = contenders[0].histogram.length
     for (let depth = 0; depth < histogramDepth; ++depth) {
-      let highestCardValue: number = 0;
-
+      
       // inner map iterates across histograms
-      //    finds highest card value
-      contenders.map ( c => {
+      // to find highest card value
+      let highestCardValue: number = 0;
+      contenders.map( c => {
         let currentValue = c.histogram[depth].value
-        if (currentValue > highestCardValue) {
+        if (highestCardValue < currentValue) {
           highestCardValue = currentValue
         }
       })
 
+
+      //WHY NOT FILTERING
+
+
       // filter contenders to exclude contenders with 
       // card value lower than highest for this given index
-      contenders.filter( c => {
+      contenders = contenders.filter( c => {
         let currentValue = c.histogram[depth].value;
         return currentValue === highestCardValue
+        // return c.histogram[depth].value === highestCardValue
       })
 
       // short circuit
@@ -125,7 +147,6 @@ export class HandEvaluator {
     contenders.map( c => {
       winners.push(c.index)
     })
-
     return winners
   }
 
@@ -207,3 +228,19 @@ export class HandEvaluator {
   }
 
 }
+//debug
+// let s = new StateMachine()
+// let x = new HandEvaluator(s)
+// let hist = [{value: 2, quantity: 3},{value: 3, quantity: 2}]
+
+
+// let sig = x.histogramToSignature(hist)
+// let enu = x.signatureToHandEnum(sig, hist)
+// console.log("histogram: ", hist)
+// console.log("signature: ", sig)
+// console.log("enum: ", hand[enu], enu)
+
+// console.log(x.playerIndexToPlayerLetter(0))
+// console.log(x.playerIndexToPlayerLetter(66))
+// console.log(x.playerIndexToPlayerLetter(1,2))
+// console.log(x.playerIndexToPlayerLetter(...[1,2]))
