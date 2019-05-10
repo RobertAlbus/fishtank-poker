@@ -1,9 +1,17 @@
 {
     "main": "poker.ts",
+    "version": "1.0.0",
+    "scripts": { 
+        "test": "jasmine",
+        "start" : "ts-node src/poker.ts"
+    },
     "dependencies": {
         "@types/node": "^12.0.0",
         "readline": "^1.3.0",
         "readline-sync": "^1.4.9",
         "ts-node": "8.1.0"
+    },
+    "devDependencies": {
+        "jasmine": "^3.4.0"
     }
 }
