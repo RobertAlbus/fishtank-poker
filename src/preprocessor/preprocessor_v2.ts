@@ -2,6 +2,20 @@ import { cardEnum } from "../types/hand.enum";
 import { Histogram, HistogramItem } from '../types/histogram'
 import { StateMachine } from "../state-module/state-machine";
 
+////////
+// preprocessing pipeline 
+// see preprocessing.md for a visual breakdown
+
+// strings            => hands
+// 
+// hands              => hands with discreet cards,
+// 
+// hands with cards   => cards by numeric value
+//
+// numeric hands      => histograms
+//
+////////
+
 export class Preprocessor {
 
   constructor(private state: StateMachine) {
