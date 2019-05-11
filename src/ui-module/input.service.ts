@@ -13,7 +13,7 @@ export class InputService {
   public getUserInput(data?: string[]): void {
     if (!data) {
       let quantity = this.getNumberOfRounds();
-      let data = this.getRounds(quantity);
+      data = this.getRounds(quantity);
     }
     this.state.strings = data;
   }
