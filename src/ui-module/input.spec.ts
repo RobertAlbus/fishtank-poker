@@ -12,7 +12,7 @@ describe('input service', () => {
   it('should save data to state machine', () => {
     let roundOfCards = "23456 99988"
     input.getUserInput([roundOfCards])
-    expect(state.strings === [roundOfCards]).toBeTruthy()
+    expect(state.strings).toEqual([roundOfCards])
   })
 
 })
