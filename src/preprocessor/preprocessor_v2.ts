@@ -10,7 +10,7 @@ export class Preprocessor {
 
   processAll() {
     this.state.histograms = 
-    this.batchStringToHistograms(this.state.strings && this.state.strings)
+    this.batchStringToHistograms(this.state.strings)
   }
 
   // creates an array of sets of sorted histograms
