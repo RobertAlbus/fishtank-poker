@@ -150,7 +150,6 @@ export class HandEvaluator {
     return winners
   }
 
-
   histogramToSignature(histogram: Histogram): string {
 
     let signature: string = ""
@@ -228,19 +227,3 @@ export class HandEvaluator {
   }
 
 }
-//debug
-// let s = new StateMachine()
-// let x = new HandEvaluator(s)
-// let hist = [{value: 2, quantity: 3},{value: 3, quantity: 2}]
-
-
-// let sig = x.histogramToSignature(hist)
-// let enu = x.signatureToHandEnum(sig, hist)
-// console.log("histogram: ", hist)
-// console.log("signature: ", sig)
-// console.log("enum: ", hand[enu], enu)
-
-// console.log(x.playerIndexToPlayerLetter(0))
-// console.log(x.playerIndexToPlayerLetter(66))
-// console.log(x.playerIndexToPlayerLetter(1,2))
-// console.log(x.playerIndexToPlayerLetter(...[1,2]))
