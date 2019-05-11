@@ -4,9 +4,8 @@ import { Z_RLE } from "zlib";
 export class InputService {
 
   private rl = require('readline-sync')
-  private inputValidator = new RegExp('([0-9AKQJT]{5})( )([0-9AKQJT]{5})', 'i')
+  private inputValidator = new RegExp('(([2-9TJQKA]{5})( ))*([2-9TJQKA]{5})', 'i')
   
-
   constructor(private state: StateMachine) {
   }
 
