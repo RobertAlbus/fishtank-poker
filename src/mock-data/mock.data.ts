@@ -41,9 +41,8 @@ export const strings: string[] = [
   // tie by hand rank
   // tie by histogram analysis
   "A2346 A2346 A2346 A2346"   //12 HICHCARD HICHCARD HICHCARD HICHCARD  | abcd
-
-
 ];
+
 export const histograms: Histogram[][] = [
   [ //0 "24578 2578A"
     [ new HistogramItem(8,1), new HistogramItem(7,1), new HistogramItem(5,1), new HistogramItem(4,1), new HistogramItem(2,1)],
@@ -105,6 +104,7 @@ export const histograms: Histogram[][] = [
 
 export const enums: handEnum[][] =
 [
+
   [hand.HIGHCARD,     hand.HIGHCARD],     //0 "24578 2578A"
   [hand.PAIR,         hand.PAIR],         //1 "22456 33678"
   [hand.TWOPAIR,      hand.TWOPAIR],      //2 "22449 44339"
@@ -122,6 +122,7 @@ export const enums: handEnum[][] =
 ];
 
 export const winnerStrings: string[] = [
+  
   "b",    //0  "24578 2578A"
   "b",    //1  "22456 33678"
   "b",    //2  "22449 44339"
