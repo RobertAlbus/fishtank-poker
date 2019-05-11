@@ -1,5 +1,4 @@
 import { StateMachine } from "../state-module/state-machine";
-import { Z_RLE } from "zlib";
 
 export class InputService {
 
@@ -10,10 +9,16 @@ export class InputService {
   }
 
   public getUserInput(data?: string[]): void {
+
     if (!data) {
       let quantity = this.getNumberOfRounds();
       data = this.getRounds(quantity);
     }
+
+    data.map( (d,i) => {
+      data[i] = d.toUpperCase()
+    })
+
     this.state.strings = data;
   }
   
@@ -26,7 +31,7 @@ export class InputService {
       process.exit()
     }
     
-    console.log('Please enter a positive number or 0 to exit');
+    console.log('Please enter a positive number, or 0 to exit');
     this.getNumberOfRounds()
   }
 
@@ -42,7 +47,7 @@ export class InputService {
   private getRound(): string {
     let response:string = this.rl.question('=> ');
     if (this.inputValidator.test(response)) {
-      return response.toUpperCase();
+      return response;
     }
     console.log('Invalid. Please try again with valid cards: 0-9,TJQKA');
     return this.getRound();
