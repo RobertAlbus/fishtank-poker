@@ -76,7 +76,6 @@ function numericToHistograms(numeric: number[][][]): HistogramItem[][][]  {
       
     })
   })
-  console.log(histograms)
   return histograms
 }
 
