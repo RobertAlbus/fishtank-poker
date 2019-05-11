@@ -103,7 +103,7 @@ export const histograms: Histogram[][] = [
   ],
 ];
 
-const enums: handEnum[][] =
+export const enums: handEnum[][] =
 [
   [hand.HIGHCARD,     hand.HIGHCARD],     //0 "24578 2578A"
   [hand.PAIR,         hand.PAIR],         //1 "22456 33678"
@@ -121,7 +121,7 @@ const enums: handEnum[][] =
   [hand.HIGHCARD, hand.HIGHCARD, hand.HIGHCARD, hand.HIGHCARD]  //12 "A2346 A2346 A2346 A2346"
 ];
 
-const winnerStrings: string[] = [
+export const winnerStrings: string[] = [
   "b",    //0  "24578 2578A"
   "b",    //1  "22456 33678"
   "b",    //2  "22449 44339"
