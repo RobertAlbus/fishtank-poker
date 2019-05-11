@@ -10,13 +10,13 @@ export class OutputService {
     this.printRounds(this.state.enums, this.state.winnerStrings)
   }
 
-  printRounds(enums: handEnum[][], winners: string[]): void {
+  private printRounds(enums: handEnum[][], winners: string[]): void {
     enums.map( (e, i) => {
       this.printRound(e, winners[i])
     })
   }
 
-  printRound(enums: handEnum[], winner: string): void {
+  private printRound(enums: handEnum[], winner: string): void {
     let output = ""
     enums.map( e => {
       output += handEnum[e] + " "
