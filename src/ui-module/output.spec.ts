@@ -18,10 +18,11 @@ describe('Output service', () => {
     const logs:string[] = [];
     console.log = (arg) => {
       logs.push(arg.toString());
-      cLog(arg);
+      // cLog(arg); // pass-through to original console.log if needed
     };
 
     // load mock data into state
+    state.init()
     state.loadAll();
     
     // create output strings
@@ -38,5 +39,7 @@ describe('Output service', () => {
     // assert console log is the expect strings
     output.printAll()
     expect(logs).toEqual(completeWinnerStrings);
+
+    state.init();
   });
 });
