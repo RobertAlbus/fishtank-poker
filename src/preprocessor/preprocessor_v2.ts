@@ -10,7 +10,7 @@ export class Preprocessor {
 
   processAll() {
     this.state.histograms = 
-    this.batchStringToHistograms(this.state.strings)
+    this.batchStringToHistograms(this.state.strings && this.state.strings)
   }
 
   // creates an array of sets of sorted histograms
@@ -46,17 +46,17 @@ export class Preprocessor {
   // TRANSFORMATIONS
 
   // split strings into discreet hands
-  stringToHands(input: string): string[] {
+  private stringToHands(input: string): string[] {
     return input.split(' ');
   }
 
   //  hands into discreet cards
-  handToCards(hand: string): string[] {
+  private handToCards(hand: string): string[] {
     return hand.split('')
   }
   
   // transform card values into numerical values
-  cardsToNumeric(hand: string[]): number[] {
+  private cardsToNumeric(hand: string[]): number[] {
     let numeric: number[] = [];
 
     hand.map( card => {
@@ -67,7 +67,7 @@ export class Preprocessor {
   }
 
   // represent frequency of card values as histogram elements
-  numericToHistogram(hand: number[]): Histogram {
+  private numericToHistogram(hand: number[]): Histogram {
     let histogram: Histogram = []
   
     while(hand.length > 0) {
@@ -91,7 +91,7 @@ export class Preprocessor {
   // later actions assume 
   // 1. sort descending: histogram.quantity
   // 2. if tied => sort descending: histogram.value
-  sortHistogram(histogram: Histogram): Histogram {
+  private sortHistogram(histogram: Histogram): Histogram {
 
     return histogram.sort( (a, b) => {
       if (a.quantity === b.quantity) {
