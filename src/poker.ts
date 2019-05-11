@@ -11,11 +11,7 @@ const preprocessor  = new Preprocessor(state);
 const evaluator     = new HandEvaluator(state);
 const output        = new OutputService(state);
 
-//input.getUserInput();
-
-let mockdata = 'TTT99 AAAKK'
-input.programmaticInput([mockdata])
+input.getUserInput();
 preprocessor.processAll();
 evaluator.evaluateAll();
 output.printAll();
-// console.log(state)
