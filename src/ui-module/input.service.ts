@@ -1,4 +1,5 @@
-import { StateMachine } from "state-module/state-machine";
+import { StateMachine } from "../state-module/state-machine";
+import { Z_RLE } from "zlib";
 
 export class InputService {
 
@@ -9,19 +10,16 @@ export class InputService {
   constructor(private state: StateMachine) {
   }
 
-  public getUserInput() {
-    let quantity = this.getNumberOfRounds();
-    let rounds = this.getRounds(quantity);
-    this.state.strings = rounds;
-  }
-
-  public programmaticInput(input: string[]) {
-    this.state.strings = input;
+  public getUserInput(data?: string[]): void {
+    if (!data) {
+      let quantity = this.getNumberOfRounds();
+      let data = this.getRounds(quantity);
+    }
+    this.state.strings = data;
   }
   
   private getNumberOfRounds():number {
     let response = this.rl.questionInt('How many pairs of hands? ');
-    
     if (response > 0) {
       return response;
     } 
