@@ -40,9 +40,9 @@ export class InputService {
   }
 
   private getRound(): string {
-    let response = this.rl.question('=> ');
+    let response:string = this.rl.question('=> ');
     if (this.inputValidator.test(response)) {
-      return response;
+      return response.toUpperCase();
     }
     console.log('Invalid. Please try again with valid cards: 0-9,TJQKA');
     return this.getRound();
