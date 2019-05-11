@@ -124,10 +124,6 @@ export class HandEvaluator {
         }
       })
 
-
-      //WHY NOT FILTERING
-
-
       // filter contenders to exclude contenders with 
       // card value lower than highest for this given index
       contenders = contenders.filter( c => {
