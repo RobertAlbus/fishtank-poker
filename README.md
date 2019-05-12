@@ -190,7 +190,7 @@ Histograms => Winners
 8. push letter to state.winnerStrings
 
 ### Output
-1. return state.handEnum\[i] + " " + state.winnerString[i]
+1. return state.handEnums\[i] + " " + state.winnerString\[i]
 
 
 --------
@@ -226,6 +226,8 @@ How to find index of a given hand:
 
     Miss : Compare hand\[card] to table\[i+1]\[card]
 
+    Until : i === hand.length-1 (Match)
+
 2. See 1.
 
 --------
@@ -237,7 +239,7 @@ Determine winning hand for a round of suitless poker.
 For input
 `23456 3452A`
 Give output
-`STRAIGHT STRAIGHT b`
+`STRAIGHT STRAIGHT a`
 
 ### Results Overview
 Requirements met:
@@ -280,7 +282,7 @@ Hand Comparator:
 4. Determine winner-letter from original index position of the winner(s)
 
 ### Deficiency List
-No wildcard support
+- [ ] No wildcard support
 
 ### Alternate Solutions
 1. Lookup-based
