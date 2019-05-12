@@ -123,11 +123,11 @@ export class Preprocessor {
   // input histogram must be sorted
   private catchEdgeCase_StraightLowAce(histogram: Histogram): Histogram {
     if (
-      histogram[0].value === 14 &&
-      histogram[1].value === 5 &&
-      histogram[2].value === 4 &&
-      histogram[3].value === 3 &&
-      histogram[4].value === 2
+      histogram[0] && histogram[0].value === 14 &&
+      histogram[1] && histogram[1].value === 5 &&
+      histogram[2] && histogram[2].value === 4 &&
+      histogram[3] && histogram[3].value === 3 &&
+      histogram[4] && histogram[4].value === 2
       ) {
         const temp: HistogramItem = histogram.shift();
         temp.value = 1;
