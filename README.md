@@ -6,6 +6,7 @@ Programming challenge for [Fish Tank Consulting](https://getfishtank.ca/)
 * Challenge
 * Results Overview
 * Application Architecture
+* Algorithms Overview
 * Deficiency List
 * Alternate Solutions
 * Summary
@@ -67,16 +68,181 @@ Sample Output
 * PAIR PAIR a
 
 --------
-## Results Overview
+## Project Overview
+Implmentation parses hands into histograms and makes decisions based on those histograms.
+
+
+TODO
+FINALIZE HOURS LOG
+
+### Time Breakdown
+[time log](./hoursLog.md)
+|TEST|HOURS|
+|:----------------|-------:|
+| Exploration     |  2.0 H |
+| Architecture    |  2.5 H |
+| Implementation  | 16.5 H |
+| Testing         | 12.5 H |
+| Wrap-up         |  2.5 H |
+|:----------------|-------:|
+| Total           | 36.5 H |
+
+
+- [x] Correct output in all cases
+- [x] Test suite for all public APIs, utilizing mock services and data
+- [x] Edge case: Aces-low straight 1-5
+- [x] Simple architecture
+- [x] Can evaluate 1 or more hands
+- [x] Short-circuit evaluation (improved efficiency)
+- []  Accounts for wildcard *
 
 --------
 ## Application Architecture
+|                 | DI            |
+|:----------------|:--------------|
+| State Machine   |               |
+| Input Service   | State Machine |
+| Preprocessor    | State Machine |
+| Hand Comparator | State Machine |
+| Output Service  | State Machine |
+
+### Program Flow
+1. Get input
+2. Save input to state machine
+3. Preprocess input strings into useful formate
+4. Evaluate winners
+5. Save winners to state machine
+6. Output winners
+
+--------
+## Algorithms Overview
+
+### Preprocessor
+Input Strings => Histograms
+[preprocessor algorithm example](./preprocessor/preprocessor.md)
+1. input string 
+2. discreet hands
+3. discreet cards
+4. numeric representation of cards
+5. histogram
+6. sorted descending histogram 
+  * primary sort: card frequency
+  * secondary sort: card value
+7. Catch edge case: low-ace straight 1-5
+
+### Hand comparator
+Histograms => Winners
+1. sorted histogram
+2. histogram signature
+  * 41  => four of a kind
+  * 32  => full house
+  * 311 => three of a kind
+  * 221 => two pair
+  * 211 => pair
+  * 11111 && histogram[0] - histogram[4] === 4 => straight
+  * 11111 => high card
+  * default => cheater
+3. hand-rank Enum
+4. compare enums
+  a. if 1 winner by hand-rand => !!! short circuit to winner => /return winners index position/ !!! 
+  b. if hand-rank tie => histogram comparison
+5. histogram comparison
+  a. width-first comparison of histograms
+  b. filter out hands that are not tied
+  c. filter hands for highest card-value for histogram[i]
+  d. recurse until 1 contender left or histograms are entirely identical
+6. /return winners index position(s)/
+7. convert index-position to letter
+8. push letter to state.winnerStrings
+
+### Output
+1. return state.handEnum[i] + " " + state.winnerString[i]
+
 
 --------
 ## Deficiency List
 
+### Does not accept wildcards *
+It would be possible to account for wildcards in a subsequent version.
+
+Solution A:
+* Generate all possible hands given this quantity of wildcards
+* Evaluate best hand of this set
+* Select this hand to carry forward for comparison against other players
+* The time complexity would be terrible: 13^n where n = number of wildcards
+
+Solution B:
+* Evaluate histogram signature, including wildcards
+* if ( n wildcards && this histogram signature) => best possible hand = some hand
+* Just one big switch
+* time complexity would be linear (I think)
+
 --------
-## Alternate Solutions
+## Alternate Solution
+
+1. Populate a sorted list of all possible sorted hands
+2. Sort input hands
+3. Find index of each sorted input hand
+4. Compare the indexes of hands, best index wins or tie
+
+How to find index of a given hand:
+1. Compare hand\[card] to table\[i]\[card]
+  a. Hit  : Compare hand\[card+1] to table\[i]\[card+1]
+  b. Miss : Compare hand\[card] to table\[i+1]\[card]
 
 --------
 ## Summary
+
+### Challenge
+Determine winning hand for a round of suitless poker.
+
+For input
+`23456 3452A`
+Give output
+`STRAIGHT STRAIGHT b`
+
+### Results Overview
+Requirements met:
+* Should determine winner
+* Elegant architecture
+* Test suite
+* Account for aces-low
+
+Requirements missed:
+* Should account for wildcard * input
+
+Requirements exceeded:
+* Can compare more than 2 hands per round
+
+### Application Architecture
+
+Input => Preprocess => Hand Comparator => Output
+
+All services share State Machine via dependency injection
+
+### Algorithms Overview
+Preprocess: 
+1. Round of poker   => discreet hands
+2. Hand             => discreet cards
+3. Cards            => numeric values
+4. Numeric values   => histogram {card value, card frequency}
+5. Histogram        => sorted histogram
+6. Sorted histogram => catch edge case: low-ace
+
+Hand Comparator:
+1. Histogram => histogram signature
+2. Compare signatures
+  a. short circuit if obvious winner by histogram signature
+3. Compare histogram\[i]
+  * filter out contenders until 1 contender left OR histograms are identical
+4. Determine winner-letter from original index position of the winner(s)
+
+### Deficiency List
+No wildcard support
+
+### Alternate Solutions
+1. Lookup-based
+2. Sorted table of all possible sorted hands
+3. Compare indexes
+
+--------
