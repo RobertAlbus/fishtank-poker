@@ -149,22 +149,30 @@ Histograms => Winners
     11111 => high card
 
     default => cheater
-    
+
 3. hand-rank Enum
 4. compare enums
+
     if 1 winner by hand-rand => !!! short circuit to winner => return winners index position !!! 
+
     if hand-rank tie => histogram comparison
+
 5. histogram comparison
+
     width-first comparison of histograms
+
     filter out hands that are not tied
+
     filter hands for highest card-value for histogram\[i]
+
     recurse until 1 contender left or histograms are entirely identical
+
 6. return winners index position(s)
 7. convert index-position to letter
 8. push letter to state.winnerStrings
 
 ### Output
-1. return state.handEnum[i] + " " + state.winnerString[i]
+1. return state.handEnum\[i] + " " + state.winnerString[i]
 
 
 --------
@@ -195,8 +203,10 @@ Solution B:
 
 How to find index of a given hand:
 1. Compare hand\[card] to table\[i]\[card]
-  a. Hit  : Compare hand\[card+1] to table\[i]\[card+1]
-  b. Miss : Compare hand\[card] to table\[i+1]\[card]
+
+    Hit  : Compare hand\[card+1] to table\[i]\[card+1]
+
+    Miss : Compare hand\[card] to table\[i+1]\[card]
 
 --------
 ## Summary
@@ -240,9 +250,13 @@ Preprocess:
 Hand Comparator:
 1. Histogram => histogram signature
 2. Compare signatures
-  a. short circuit if obvious winner by histogram signature
+
+    short circuit if obvious winner by histogram signature
+
 3. Compare histogram\[i]
-  * filter out contenders until 1 contender left OR histograms are identical
+
+    filter out contenders until 1 contender left OR histograms are identical
+    
 4. Determine winner-letter from original index position of the winner(s)
 
 ### Deficiency List
