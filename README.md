@@ -74,14 +74,14 @@ Implmentation parses hands into histograms and makes decisions based on those hi
 ### Time Breakdown
 [time log](./hoursLog.md)
 
-| TEST            | HOURS  |
+| TASK            | HOURS  |
 |:----------------|-------:|
 | Exploration     |  2.0 H |
 | Architecture    |  2.5 H |
 | Implementation  | 16.5 H |
 | Testing         | 12.5 H |
 | Wrap-up         |  2.5 H |
-|:----------------|-------:|
+|                 |        |
 | Total           | 36.5 H |
 
 ### Requirements
