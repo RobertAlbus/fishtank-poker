@@ -2,8 +2,9 @@
     "main": "poker.ts",
     "version": "1.0.0",
     "scripts": {
-        "test": "nyc  -r lcov -e .ts -x \"*.spec.ts\" jasmine-ts --config=jasmine.json",
-        "start": "ts-node src/poker.ts"
+        "test": "jasmine-ts --config=jasmine.json",
+        "start": "ts-node src/poker.ts",
+        "coverage": "nyc  -r lcov -e .ts -x \"*.spec.ts\" -x \"**/*.spec.ts\" -x \"coverage/**\" -x \"src/mock-data/**\" -x \"src/poker.ts\" -x \"**/preprocessor_depreciated.ts\" -x \"**/*.mock.ts\" jasmine-ts --config=jasmine.json"
     },
     "dependencies": {
         "typescript": "^3.4.5",
