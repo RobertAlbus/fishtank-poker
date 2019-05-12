@@ -1,51 +1,51 @@
-import { StateMachine } from "../state-module/state-machine";
+import { StateMachine } from '../state-module/state-machine';
 
 export class InputService {
 
-  private rl = require('readline-sync')
-  private inputValidator = new RegExp('(([2-9TJQKA]{5})( ))*([2-9TJQKA]{5})', 'i')
-  
+  private rl = require('readline-sync');
+  private inputValidator = new RegExp('(([2-9TJQKA]{5})( ))*([2-9TJQKA]{5})', 'i');
+
   constructor(private state: StateMachine) {
   }
 
   public getUserInput(data?: string[]): void {
 
     if (!data) {
-      let quantity = this.getNumberOfRounds();
+      const quantity = this.getNumberOfRounds();
       data = this.getRounds(quantity);
     }
 
-    data.map( (d,i) => {
-      data[i] = d.toUpperCase()
-    })
+    data.map( (d, i) => {
+      data[i] = d.toUpperCase();
+    });
 
     this.state.strings = data;
   }
-  
-  private getNumberOfRounds():number {
-    let response = this.rl.questionInt('How many pairs of hands? ');
+
+  private getNumberOfRounds(): number {
+    const response = this.rl.questionInt('How many pairs of hands? ');
     if (response > 0) {
       return response;
-    } 
-    if (response === 0 ) {
-      process.exit()
     }
-    
+    if (response === 0 ) {
+      process.exit();
+    }
+
     console.log('Please enter a positive number, or 0 to exit');
-    this.getNumberOfRounds()
+    this.getNumberOfRounds();
   }
 
   private getRounds(quantity: number): string[] {
-    let hands: string[] = [];
+    const hands: string[] = [];
 
     for (let i = 0; i < quantity; ++i) {
-      hands.push(this.getRound())
+      hands.push(this.getRound());
     }
-    return hands
+    return hands;
   }
 
   private getRound(): string {
-    let response:string = this.rl.question('=> ');
+    const response: string = this.rl.question('=> ');
     if (this.inputValidator.test(response)) {
       return response;
     }

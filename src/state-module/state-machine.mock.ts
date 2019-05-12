@@ -1,5 +1,5 @@
-import { Histogram } from "../types/histogram";
-import { handEnum } from "../types/hand.enum";
+import { Histogram } from '../types/histogram';
+import { handEnum } from '../types/hand.enum';
 import * as data from '../mock-data/mock.data';
 
 export class StateMachineMock {
@@ -9,7 +9,7 @@ export class StateMachineMock {
   winnerStrings : string[];
 
   constructor() {
-    this.init()
+    this.init();
   }
 
   init() {
@@ -22,13 +22,13 @@ export class StateMachineMock {
   load(...members: string[]) {
     members.map( member => {
       this[member] = data[member];
-    })
+    });
   }
   loadAll() {
     this.loadStrings();
     this.loadHistograms();
     this.loadEnums();
-    this.loadWinnerStrings()
+    this.loadWinnerStrings();
   }
   loadStrings(){
     this.strings = data.strings;

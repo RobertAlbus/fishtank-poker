@@ -4,5 +4,4 @@ export class HistogramItem {
       public quantity: number
     ){}
   }
-export type Histogram = HistogramItem[]
-  
+export type Histogram = HistogramItem[];

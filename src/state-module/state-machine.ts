@@ -1,5 +1,5 @@
-import { Histogram } from "types/histogram";
-import { handEnum } from "types/hand.enum";
+import { Histogram } from 'types/histogram';
+import { handEnum } from 'types/hand.enum';
 
 export class StateMachine {
   strings       : string[];

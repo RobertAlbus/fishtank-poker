@@ -1,6 +1,6 @@
-import { StateMachine } from "../state-module/state-machine";
-import { Histogram } from "../types/histogram";
-import { handEnum as hand, handEnum} from "../types/hand.enum";
+import { StateMachine } from '../state-module/state-machine';
+import { Histogram } from '../types/histogram';
+import { handEnum as hand, handEnum} from '../types/hand.enum';
 
 export class HandEvaluator {
 
@@ -13,55 +13,55 @@ export class HandEvaluator {
   }
 
   public evaluateAll(): void {
-    let results = this.computeWinners(this.state.histograms)
+    const results = this.computeWinners(this.state.histograms);
     this.state.winnerStrings = results.winners;
     this.state.enums = results.enums;
   }
 
   public computeWinners(rounds: Histogram[][]): {winners: string[], enums: handEnum[][]} {
-    let winners: string[] = [];
-    let enums: handEnum[][] = []
+    const winners: string[] = [];
+    const enums: handEnum[][] = [];
 
     rounds.map( round => {
-      let result = this.computeWinner(round);
+      const result = this.computeWinner(round);
       winners.push(result.winner);
       enums.push(result.enums);
-    })
+    });
 
     return {winners, enums};
   }
 
   public computeWinner(histograms: Histogram[]): { enums: handEnum[], winner: string } {
-    
-    let enums: handEnum[] = [];
+
+    const enums: handEnum[] = [];
     histograms.map( histogram => {
       // generate signature
-      let signature = this.histogramToSignature(histogram)
+      const signature = this.histogramToSignature(histogram);
       // determine enum from signature
-      enums.push(this.signatureToHandEnum(signature, histogram))
-    })
+      enums.push(this.signatureToHandEnum(signature, histogram));
+    });
 
     let winnerIndex: number[];
     if (this.getWinnerFromEnums(enums).length > 0) {
-      winnerIndex = this.getWinnerFromEnums(enums)
+      winnerIndex = this.getWinnerFromEnums(enums);
     } else {
       winnerIndex = this.getWinnerFromHistograms(histograms, enums);
     }
 
 
-    let winner: string = this.playerIndexToPlayerLetter(...winnerIndex);
-    
+    const winner: string = this.playerIndexToPlayerLetter(...winnerIndex);
+
     return { enums: enums, winner: winner};
   }
 
   private getWinnerFromEnums(enums: handEnum[]): number[] {
 
-    let highestHand = Math.max(...enums)
-    let quantityOfHighestHand = enums.filter( e => e === highestHand).length
+    const highestHand = Math.max(...enums);
+    const quantityOfHighestHand = enums.filter( e => e === highestHand).length;
 
     // if there is 1 obvious winner based on hand rank alone
     if (quantityOfHighestHand === 1) {
-      return [enums.indexOf(highestHand)]
+      return [enums.indexOf(highestHand)];
     }
     return [];
   }
@@ -72,7 +72,7 @@ export class HandEvaluator {
 
     // determine highest handEnum value present
     // aka the type of hand that wins
-    let highestHand = Math.max(...enums)
+    const highestHand = Math.max(...enums);
 
     let contenders: {
       index?: number,
@@ -87,20 +87,20 @@ export class HandEvaluator {
         if (contenders !== undefined ) {
           // if initialized => push
           contenders.push({
-            index: index, 
-            handRank: enums[index], 
+            index: index,
+            handRank: enums[index],
             histogram: histograms[index]
           });
         } else {
           // else => initialize
           contenders = [ {
-            index: index, 
-            handRank: enums[index], 
+            index: index,
+            handRank: enums[index],
             histogram: histograms[index]
-          } ]
+          } ];
         }
       }
-    })
+    });
 
     // eliminate contenders with lowest card rank for a given histogram position
     // until 1 left or all positions evaluate to a tie
@@ -108,77 +108,77 @@ export class HandEvaluator {
 
     // outer for loop iterates /through/ histograms depthwise
     // all constenders will have the same histogram[].length
-    let histogramDepth = contenders[0].histogram.length
+    const histogramDepth = contenders[0].histogram.length;
     for (let depth = 0; depth < histogramDepth; ++depth) {
-      
+
       // inner map iterates across histograms
       // to find highest card value
-      let highestCardValue: number = 0;
+      let highestCardValue = 0;
       contenders.map( c => {
-        let currentValue = c.histogram[depth].value
+        const currentValue = c.histogram[depth].value;
         if (highestCardValue < currentValue) {
-          highestCardValue = currentValue
+          highestCardValue = currentValue;
         }
-      })
+      });
 
-      // filter contenders to exclude contenders with 
+      // filter contenders to exclude contenders with
       // card value lower than highest for this given index
       contenders = contenders.filter( c => {
-        let currentValue = c.histogram[depth].value;
-        return currentValue === highestCardValue
+        const currentValue = c.histogram[depth].value;
+        return currentValue === highestCardValue;
         // return c.histogram[depth].value === highestCardValue
-      })
+      });
 
       // short circuit
       // winner found
       if (contenders.length === 1) {
-        break
+        break;
       }
     }
 
     // map the indexes of winner(s) to array for returning
-    let winners: number[] = [];
+    const winners: number[] = [];
     contenders.map( c => {
-      winners.push(c.index)
-    })
-    return winners
+      winners.push(c.index);
+    });
+    return winners;
   }
 
   private histogramToSignature(histogram: Histogram): string {
 
-    let signature: string = ""
+    let signature = '';
     histogram.map( item => {
-      signature += item.quantity.toString()
-    })
+      signature += item.quantity.toString();
+    });
 
     return signature.trim();
   }
 
   private signatureToHandEnum(signature: string, histogram: Histogram): handEnum {
 
-    switch(signature) {
+    switch (signature) {
       case '41': {
-        return hand.FOUROFAKIND
+        return hand.FOUROFAKIND;
       }
       case '32': {
-        return hand.FULLHOUSE
+        return hand.FULLHOUSE;
       }
       case '311': {
-        return hand.THREEOFAKIND
+        return hand.THREEOFAKIND;
       }
       case '221': {
-        return hand.TWOPAIR
+        return hand.TWOPAIR;
       }
       case '2111': {
-        return hand.PAIR
+        return hand.PAIR;
       }
       case  '11111': {
         if (histogram[0].value - histogram[4].value === 4) {
-          return hand.STRAIGHT
+          return hand.STRAIGHT;
         }
         // catch edge case of straight with low ace
         if (
-          histogram[0].value === 14 && 
+          histogram[0].value === 14 &&
           histogram[1].value === 5 &&
           histogram[2].value === 4 &&
           histogram[3].value === 3 &&
@@ -187,21 +187,21 @@ export class HandEvaluator {
           histogram.push(histogram.shift());
           histogram[4].value = 1;
           if (histogram[0].value - histogram[4].value === 4) {
-            return hand.STRAIGHT
+            return hand.STRAIGHT;
           }
         }
-        return hand.HIGHCARD
+        return hand.HIGHCARD;
       }
       default: {
-        return hand.CHEATER
+        return hand.CHEATER;
       }
     }
   }
 
   private compareEnums(enums: handEnum[]) {
 
-    let winnersIndexes: number[] = [];
-    let best = enums.sort()[0]
+    const winnersIndexes: number[] = [];
+    const best = enums.sort()[0];
 
     for (let i = 0; i < enums.length; ++i){
       if (enums[i] === best) {
@@ -212,17 +212,17 @@ export class HandEvaluator {
 
   private playerIndexToPlayerLetter(...args: number[]): string {
 
-    let output: string = "";
-    let a: number = 97; // ASCII offset to 'a' from 1
+    let output = '';
+    const a = 97; // ASCII offset to 'a' from 1
     args.map( arg => {
       if (arg < 26) {
         output += String.fromCharCode(arg + a);
       }
       if (26 < arg) {
-        let nn: number = arg/26;
-        output +=  "|" + String.fromCharCode(nn + a - 1) + String.fromCharCode( (arg % 26 - 1) + a); + "|";
+        const nn: number = arg / 26;
+        output +=  '|' + String.fromCharCode(nn + a - 1) + String.fromCharCode( (arg % 26 - 1) + a); + '|';
       }
-    } )
+    } );
 
     return output;
   }

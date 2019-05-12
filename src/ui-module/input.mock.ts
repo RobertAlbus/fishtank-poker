@@ -1,6 +1,6 @@
-import { iInputService } from "./input.interface";
-import { StateMachine } from "../state-module/state-machine";
-import * as data from '../mock-data/mock.data'
+import { iInputService } from './input.interface';
+import { StateMachine } from '../state-module/state-machine';
+import * as data from '../mock-data/mock.data';
 
 export class InputServiceMock implements iInputService{
 
@@ -8,7 +8,7 @@ export class InputServiceMock implements iInputService{
 
   }
   public getUserInput() {
-    this.state.strings = data.strings
-  } 
+    this.state.strings = data.strings;
+  }
 }
 
