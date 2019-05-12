@@ -14,6 +14,10 @@ import { StateMachine } from '../state-module/state-machine';
 //
 // numeric hands      => histograms
 //
+// histograms         => sorted histograms
+//
+// sorted histograms  => catch edgecase low-ace straight 1-5
+//
 ////////
 
 export class Preprocessor {
