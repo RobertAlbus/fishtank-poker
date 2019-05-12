@@ -84,7 +84,7 @@ Sample Output
 
 --------
 ## Project Overview
-Implmentation parses hands into histograms and makes decisions based on those histograms.
+Parses hands into histograms and makes decisions based on those histograms.
 
 ### Time Breakdown
 [time log](./hoursLog.md)
