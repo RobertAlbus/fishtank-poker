@@ -49,8 +49,9 @@ export class Preprocessor {
       let numeric = this.cardsToNumeric(cards);
       let histogram = this.numericToHistogram(numeric);
       let histogramSorted = this.sortHistogram(histogram);
+      let histogramSorted_catchLowAce = this.catchEdgeCase_StraightLowAce(histogramSorted);
   
-      histograms.push(histogramSorted)
+      histograms.push(histogramSorted_catchLowAce)
     })
   
     return histograms
@@ -113,6 +114,23 @@ export class Preprocessor {
       }
       return b.quantity - a.quantity
     })
+  }
+
+  // input histogram must be sorted
+  private catchEdgeCase_StraightLowAce(histogram: Histogram): Histogram {
+    if (
+      histogram[0].value === 14 && 
+      histogram[1].value === 5 &&
+      histogram[2].value === 4 &&
+      histogram[3].value === 3 &&
+      histogram[4].value === 2
+      ) {
+        let temp: HistogramItem = histogram.shift();
+        temp.value = 1;
+        histogram.push(temp);
+      }
+
+      return histogram;
   }
   
 }
