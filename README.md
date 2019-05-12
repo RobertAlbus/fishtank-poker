@@ -71,13 +71,10 @@ Sample Output
 ## Project Overview
 Implmentation parses hands into histograms and makes decisions based on those histograms.
 
-
-TODO
-FINALIZE HOURS LOG
-
 ### Time Breakdown
 [time log](./hoursLog.md)
-|TEST|HOURS|
+
+| TEST            | HOURS  |
 |:----------------|-------:|
 | Exploration     |  2.0 H |
 | Architecture    |  2.5 H |
@@ -87,7 +84,7 @@ FINALIZE HOURS LOG
 |:----------------|-------:|
 | Total           | 36.5 H |
 
-
+### Requirements
 - [x] Correct output in all cases
 - [x] Test suite for all public APIs, utilizing mock services and data
 - [x] Edge case: Aces-low straight 1-5
@@ -98,7 +95,7 @@ FINALIZE HOURS LOG
 
 --------
 ## Application Architecture
-|                 | DI            |
+| Component       | DI            |
 |:----------------|:--------------|
 | State Machine   |               |
 | Input Service   | State Machine |
