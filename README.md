@@ -116,7 +116,9 @@ Implmentation parses hands into histograms and makes decisions based on those hi
 
 ### Preprocessor
 Input Strings => Histograms
+
 [preprocessor algorithm example](./preprocessor/preprocessor.md)
+
 1. input string 
 2. discreet hands
 3. discreet cards
