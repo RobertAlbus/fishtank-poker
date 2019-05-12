@@ -9,7 +9,12 @@ How to use:
 5. `npm test` (optional)
 
 Dependencies
-* 
+* typescript
+* ts-node
+* readline
+* readline-sync
+* jasmine
+* jasmine-ts
 
 --------
 ## Document outline
@@ -139,7 +144,7 @@ Input Strings => Histograms
   a. primary sort: card frequency
   
   b. secondary sort: card value
-  
+
 7. Catch edge case: low-ace straight 1-5
 
 ### Hand comparator
