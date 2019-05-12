@@ -4,6 +4,7 @@ import { handEnum as hand, handEnum} from '../types/hand.enum';
 
 export class HandEvaluator {
 
+  // assumes edge case low-ace already caught by preprocessor
   // assumes histogram entries are sorted in descending order:
   // primary sort: frequency
   // secondary sort: value
@@ -176,36 +177,10 @@ export class HandEvaluator {
         if (histogram[0].value - histogram[4].value === 4) {
           return hand.STRAIGHT;
         }
-        // catch edge case of straight with low ace
-        if (
-          histogram[0].value === 14 &&
-          histogram[1].value === 5 &&
-          histogram[2].value === 4 &&
-          histogram[3].value === 3 &&
-          histogram[4].value === 2
-          ) {
-          histogram.push(histogram.shift());
-          histogram[4].value = 1;
-          if (histogram[0].value - histogram[4].value === 4) {
-            return hand.STRAIGHT;
-          }
-        }
         return hand.HIGHCARD;
       }
       default: {
         return hand.CHEATER;
-      }
-    }
-  }
-
-  private compareEnums(enums: handEnum[]) {
-
-    const winnersIndexes: number[] = [];
-    const best = enums.sort()[0];
-
-    for (let i = 0; i < enums.length; ++i){
-      if (enums[i] === best) {
-        winnersIndexes.push(i);
       }
     }
   }
