@@ -125,22 +125,22 @@ Input Strings => Histograms
 4. numeric representation of cards
 5. histogram
 6. sorted descending histogram 
-  * primary sort: card frequency
-  * secondary sort: card value
+  a. primary sort: card frequency
+  b. secondary sort: card value
 7. Catch edge case: low-ace straight 1-5
 
 ### Hand comparator
 Histograms => Winners
 1. sorted histogram
 2. histogram signature
-  * 41  => four of a kind
-  * 32  => full house
-  * 311 => three of a kind
-  * 221 => two pair
-  * 211 => pair
-  * 11111 && histogram[0] - histogram[4] === 4 => straight
-  * 11111 => high card
-  * default => cheater
+  1. 41  => four of a kind
+  2. 32  => full house
+  3. 311 => three of a kind
+  4. 221 => two pair
+  5. 211 => pair
+  6. 11111 && histogram[0] - histogram[4] === 4 => straight
+  7. 11111 => high card
+  8. default => cheater
 3. hand-rank Enum
 4. compare enums
   a. if 1 winner by hand-rand => !!! short circuit to winner => /return winners index position/ !!! 
