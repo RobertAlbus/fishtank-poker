@@ -171,7 +171,7 @@ Histograms => Winners
 3. hand-rank Enum
 4. compare enums
 
-    if 1 winner by hand-rank => short circuit to 6 with winner
+    if 1 winner by hand-rank => short circuit to step 6. with winner
 
     if hand-rank tie => histogram comparison
 
