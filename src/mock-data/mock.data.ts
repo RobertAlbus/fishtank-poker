@@ -40,7 +40,10 @@ export const strings: string[] = [
 
   // tie by hand rank
   // tie by histogram analysis
-  'A2346 A2346 A2346 A2346'   //12 HICHCARD HICHCARD HICHCARD HICHCARD  | abcd
+  'A2346 A2346 A2346 A2346',  //12 HICHCARD HICHCARD HICHCARD HICHCARD  | abcd
+  
+  // cheater
+  'KKKKK AAAAA'               //13 CHEATER CHEATER                      | b
 ];
 
 export const histograms: Histogram[][] = [
@@ -101,6 +104,10 @@ export const histograms: Histogram[][] = [
     [new HistogramItem(14, 1), new HistogramItem(6, 1), new HistogramItem(4, 1), new HistogramItem(3, 1), new HistogramItem(2, 1)],
     [new HistogramItem(14, 1), new HistogramItem(6, 1), new HistogramItem(4, 1), new HistogramItem(3, 1), new HistogramItem(2, 1)],
   ],
+  [ //13 "KKKKK AAAAA"
+    [new HistogramItem(13, 5)],
+    [new HistogramItem(14, 5)]
+  ]
 ];
 
 export const enums: handEnum[][] =
@@ -117,9 +124,10 @@ export const enums: handEnum[][] =
   [hand.PAIR,         hand.STRAIGHT],     //8 "99865 A2345"
   [hand.TWOPAIR,      hand.TWOPAIR],      //9 "33445 33445"
 
-  [hand.THREEOFAKIND, hand.HIGHCARD,      hand.PAIR],           //10 "AAAQK 24567 22984"
-  [hand.THREEOFAKIND, hand.THREEOFAKIND,  hand.PAIR],           //11 "AAAQK JJJQK 22984"
-  [hand.HIGHCARD, hand.HIGHCARD, hand.HIGHCARD, hand.HIGHCARD]  //12 "A2346 A2346 A2346 A2346"
+  [hand.THREEOFAKIND, hand.HIGHCARD,      hand.PAIR],                     //10 "AAAQK 24567 22984"
+  [hand.THREEOFAKIND, hand.THREEOFAKIND,  hand.PAIR],                     //11 "AAAQK JJJQK 22984"
+  [hand.HIGHCARD,     hand.HIGHCARD,      hand.HIGHCARD,  hand.HIGHCARD], //12 "A2346 A2346 A2346 A2346"
+  [hand.CHEATER,      hand.CHEATER]                                       //13 "KKKKK AAAAA"
 ];
 
 export const winnerStrings: string[] = [
@@ -136,5 +144,6 @@ export const winnerStrings: string[] = [
   'ab',   //9  "33445 33445"
   'a',    //10 "AAAQK 24567 22984"
   'a',    //11 "AAAQK JJJQK 22984"
-  'abcd'  //12 "A2346 A2346 A2346 A2346"
+  'abcd', //12 "A2346 A2346 A2346 A2346"
+  "b"     //13 "KKKKK AAAAA"
 ];
