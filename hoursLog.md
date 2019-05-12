@@ -20,6 +20,7 @@
   * output
 
 ----------------
+
 ## 19 05 08
 | HOURS | description |
 |-------|-------------|
@@ -43,6 +44,7 @@
   * alias Histogram (histogramItem[])
 
 ----------------
+
 ## 19 05 09
 
 | HOURS | description |
@@ -65,3 +67,39 @@
   * (13*4)^5 possible combinations 
   * ~760mb table size ( 2 bytes * 3.8e8 )
   * would enable easy lookup even with wildcards
+----------------
+
+## 19 05 10
+
+| HOURS | description |
+|-------|-------------|
+| 2.0 H | jasmine (tests): installing/configuring/troubleshooting |
+| 3.0 H | writing tests: input, preprocessor, state machine |
+| 1.0 H | writing tests: output, preprocessor |
+|-------| |
+| 6.0 H | total |
+
+### key take-aways
+* should mock state machine for easier testing
+  * create mock data
+  * create mock state machine
+  * should be able to load mock data into mock state easily
+
+----------------
+## 19 05 11
+
+| HOURS | description |
+|-------|-------------|
+| 2.0 H | creating mock state machine and mock data for easier testing |
+| 4.0 H | writing tests: output, input, preprocessor, hand comparator |
+| 0.5 H | writing tests: output, input, preprocessor, hand comparator |
+|-------| |
+| 6.5 H | total |
+
+### key take-aways
+* Mocking state machine and data was a good idea
+  * easy to make mistakes with non-trivial sets of human-evaluated, hardcoded data
+  * changes in assumtions during refactors led to mocked data being incorrect and causing tests to fail
+  * updating mocked data made the tests pass again
+* Output testing:
+  * should test the output by stubbing console.log
