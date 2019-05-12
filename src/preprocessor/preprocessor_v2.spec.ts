@@ -2,6 +2,7 @@ import { StateMachine } from "../state-module/state-machine";
 import { Preprocessor } from "./preprocessor_v2";
 import { InputServiceMock as InputService } from "../ui-module/input.mock";
 import { Histogram, HistogramItem } from "../types/histogram";
+import * as data from '../mock-data/mock.data'
 
 describe('Preprocessor', () => {
 
@@ -14,29 +15,19 @@ describe('Preprocessor', () => {
 
   describe('string to histogram public API', () => {
 
-    let strings: string[] = ["222TT 2345A", "3333Q T9TTJ"]
+    it('should convert a string to the correct histogram[]', () => {
 
-    it('should convert string to the correct set of histograms', () => {
-      let histograms: Histogram[] = preprocessor.stringToHistograms(strings[0])
+      let histograms: Histogram[] = preprocessor.stringToHistograms(data.strings[0]);
       
       expect(histograms.length).toBeTruthy();
-      expect(histograms[0]).toEqual([
-        new HistogramItem(2,3),
-        new HistogramItem(10,2)
-      ]);
-      expect(histograms[1]).toEqual([
-        new HistogramItem(14,1),
-        new HistogramItem(5,1),
-        new HistogramItem(4,1),
-        new HistogramItem(3,1),
-        new HistogramItem(2,1)
-      ]);
+      expect(histograms).toEqual(data.histograms[0]);
+
     });
 
     it('should convert string[] to Histogram[][]', () => {
 
-      let results: Histogram[][] = preprocessor.batchStringToHistograms(strings)
-      expect(results.length).toEqual(2)
+      let results: Histogram[][] = preprocessor.batchStringToHistograms(data.strings)
+      expect(results).toEqual(data.histograms)
     })
 
     it('should get and set data from state machine', () => {
