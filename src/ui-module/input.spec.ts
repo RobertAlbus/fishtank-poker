@@ -21,9 +21,7 @@ describe('input service', () => {
   it('should upcase any valid input', () => {
     state.init();
 
-    console.log(state.strings)
     input.getUserInput(['tjqka tttaa']);
-    console.log(state.strings)
     expect(state.strings[0]).toEqual('TJQKA TTTAA')
 
     state.init()
