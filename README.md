@@ -106,7 +106,7 @@ Implmentation parses hands into histograms and makes decisions based on those hi
 ### Program Flow
 1. Get input
 2. Save input to state machine
-3. Preprocess input strings into useful formate
+3. Preprocess input strings into useful format
 4. Evaluate winners
 5. Save winners to state machine
 6. Output winners
