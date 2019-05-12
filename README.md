@@ -1,6 +1,16 @@
 # Poker Hand Evaluator
 Programming challenge for [Fish Tank Consulting](https://getfishtank.ca/)
 
+How to use:
+1. `git clone https://github.com/RobertAlbus/fishtank-poker.git`
+2. `cd fishtank-poker`
+3. `npm i`
+4. `npm start`
+5. `npm test` (optional)
+
+Dependencies
+* 
+
 --------
 ## Document outline
 * Challenge
@@ -153,13 +163,13 @@ Histograms => Winners
 3. hand-rank Enum
 4. compare enums
 
-    if 1 winner by hand-rand => !!! short circuit to winner => return winners index position !!! 
+    if 1 winner by hand-rank => short circuit to 6 with winner
 
     if hand-rank tie => histogram comparison
 
 5. histogram comparison
 
-    width-first comparison of histograms
+    top-down comparison of histograms
 
     filter out hands that are not tied
 
