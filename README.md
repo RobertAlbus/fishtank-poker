@@ -141,9 +141,9 @@ Input Strings => Histograms
 5. histogram
 6. sorted descending histogram 
   
-  a. primary sort: card frequency
+    primary sort: card frequency
   
-  b. secondary sort: card value
+    secondary sort: card value
 
 7. Catch edge case: low-ace straight 1-5
 
