@@ -133,24 +133,24 @@ Input Strings => Histograms
 Histograms => Winners
 1. sorted histogram
 2. histogram signature
-  1. 41  => four of a kind
-  2. 32  => full house
-  3. 311 => three of a kind
-  4. 221 => two pair
-  5. 211 => pair
-  6. 11111 && histogram[0] - histogram[4] === 4 => straight
-  7. 11111 => high card
-  8. default => cheater
+    41  => four of a kind
+    32  => full house
+    311 => three of a kind
+    221 => two pair
+    211 => pair
+    11111 && histogram[0] - histogram[4] === 4 => straight
+    11111 => high card
+    default => cheater
 3. hand-rank Enum
 4. compare enums
-  a. if 1 winner by hand-rand => !!! short circuit to winner => /return winners index position/ !!! 
-  b. if hand-rank tie => histogram comparison
+    if 1 winner by hand-rand => !!! short circuit to winner => return winners index position !!! 
+    if hand-rank tie => histogram comparison
 5. histogram comparison
-  a. width-first comparison of histograms
-  b. filter out hands that are not tied
-  c. filter hands for highest card-value for histogram[i]
-  d. recurse until 1 contender left or histograms are entirely identical
-6. /return winners index position(s)/
+    width-first comparison of histograms
+    filter out hands that are not tied
+    filter hands for highest card-value for histogram\[i]
+    recurse until 1 contender left or histograms are entirely identical
+6. return winners index position(s)
 7. convert index-position to letter
 8. push letter to state.winnerStrings
 
