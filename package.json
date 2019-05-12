@@ -15,7 +15,6 @@
     },
     "devDependencies": {
         "jasmine": "^3.4.0",
-        "jasmine-ts": "^0.3.0",
-        "jasmine-ts-console-reporter": "^3.1.1"
+        "jasmine-ts": "^0.3.0"
     }
 }
