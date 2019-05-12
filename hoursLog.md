@@ -93,8 +93,9 @@
 | 2.0 H | creating mock state machine and mock data for easier testing |
 | 4.0 H | writing tests: output, input, preprocessor, hand comparator |
 | 0.5 H | writing tests: output, input, preprocessor, hand comparator |
+| 2.0 H | README |
 |-------| |
-| 6.5 H | total |
+| 8.5 H | total |
 
 ### key take-aways
 * Mocking state machine and data was a good idea
@@ -103,3 +104,4 @@
   * updating mocked data made the tests pass again
 * Output testing:
   * should test the output by stubbing console.log
+----------------
