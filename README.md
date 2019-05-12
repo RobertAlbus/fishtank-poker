@@ -91,7 +91,7 @@ Implmentation parses hands into histograms and makes decisions based on those hi
 - [x] Simple architecture
 - [x] Can evaluate 1 or more hands
 - [x] Short-circuit evaluation (improved efficiency)
-- []  Accounts for wildcard *
+- [ ]  Accounts for wildcard *
 
 --------
 ## Application Architecture
