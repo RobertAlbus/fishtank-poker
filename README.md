@@ -133,14 +133,23 @@ Input Strings => Histograms
 Histograms => Winners
 1. sorted histogram
 2. histogram signature
+
     41  => four of a kind
+
     32  => full house
+
     311 => three of a kind
+
     221 => two pair
+
     211 => pair
+
     11111 && histogram[0] - histogram[4] === 4 => straight
+
     11111 => high card
+
     default => cheater
+    
 3. hand-rank Enum
 4. compare enums
     if 1 winner by hand-rand => !!! short circuit to winner => return winners index position !!! 
