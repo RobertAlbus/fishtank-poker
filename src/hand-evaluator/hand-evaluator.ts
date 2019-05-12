@@ -54,7 +54,7 @@ export class HandEvaluator {
     return { enums: enums, winner: winner};
   }
 
-  getWinnerFromEnums(enums: handEnum[]): number[] {
+  private getWinnerFromEnums(enums: handEnum[]): number[] {
 
     let highestHand = Math.max(...enums)
     let quantityOfHighestHand = enums.filter( e => e === highestHand).length
@@ -68,7 +68,7 @@ export class HandEvaluator {
 
   // used to determine who wins or ties when
   // there is no obvious winner that can be determined by hand rank alone
-  getWinnerFromHistograms(histograms: Histogram[], enums: handEnum[]): number[] {
+  private getWinnerFromHistograms(histograms: Histogram[], enums: handEnum[]): number[] {
 
     // determine highest handEnum value present
     // aka the type of hand that wins
@@ -78,14 +78,10 @@ export class HandEvaluator {
       index?: number,
       handRank?: handEnum,
       histogram?: Histogram
-    }[];
+    }[]; // TODO initialize here and remove initialization logic @ line 87 & 94
     // create filtered list of: histograms tied by signature && their index
+    // needed if n>2 players because it's possible that not all players have a tied handEnum
     enums.map( (e, index) => {
-
-      // check for handEnum.STRAIGHT
-      // if histogram[0] === 14 && histogram[1] === 2
-      // => histogram.push(histogram.shift)
-      // histogram[4].value = 1
 
       if (e === highestHand) {
         if (contenders !== undefined ) {
@@ -108,9 +104,10 @@ export class HandEvaluator {
 
     // eliminate contenders with lowest card rank for a given histogram position
     // until 1 left or all positions evaluate to a tie
-    // ie two hands of the same type, the higher card wins
+    // ie two hands of the same handEnum, the higher card wins
 
     // outer for loop iterates /through/ histograms depthwise
+    // all constenders will have the same histogram[].length
     let histogramDepth = contenders[0].histogram.length
     for (let depth = 0; depth < histogramDepth; ++depth) {
       
@@ -133,6 +130,7 @@ export class HandEvaluator {
       })
 
       // short circuit
+      // winner found
       if (contenders.length === 1) {
         break
       }
@@ -146,7 +144,7 @@ export class HandEvaluator {
     return winners
   }
 
-  histogramToSignature(histogram: Histogram): string {
+  private histogramToSignature(histogram: Histogram): string {
 
     let signature: string = ""
     histogram.map( item => {
@@ -156,7 +154,7 @@ export class HandEvaluator {
     return signature.trim();
   }
 
-  signatureToHandEnum(signature: string, histogram: Histogram): handEnum {
+  private signatureToHandEnum(signature: string, histogram: Histogram): handEnum {
 
     switch(signature) {
       case '41': {
@@ -178,7 +176,14 @@ export class HandEvaluator {
         if (histogram[0].value - histogram[4].value === 4) {
           return hand.STRAIGHT
         }
-        if (histogram[0].value === 14 ) {
+        // catch edge case of straight with low ace
+        if (
+          histogram[0].value === 14 && 
+          histogram[1].value === 5 &&
+          histogram[2].value === 4 &&
+          histogram[3].value === 3 &&
+          histogram[4].value === 2
+          ) {
           histogram.push(histogram.shift());
           histogram[4].value = 1;
           if (histogram[0].value - histogram[4].value === 4) {
@@ -193,7 +198,7 @@ export class HandEvaluator {
     }
   }
 
-  compareEnums(enums: handEnum[]) {
+  private compareEnums(enums: handEnum[]) {
 
     let winnersIndexes: number[] = [];
     let best = enums.sort()[0]
@@ -205,7 +210,7 @@ export class HandEvaluator {
     }
   }
 
-  playerIndexToPlayerLetter(...args: number[]): string {
+  private playerIndexToPlayerLetter(...args: number[]): string {
 
     let output: string = "";
     let a: number = 97; // ASCII offset to 'a' from 1
