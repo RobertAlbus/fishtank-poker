@@ -218,6 +218,8 @@ How to find index of a given hand:
 
     Miss : Compare hand\[card] to table\[i+1]\[card]
 
+2. See 1.
+
 --------
 ## Summary
 
