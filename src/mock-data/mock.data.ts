@@ -32,7 +32,7 @@ export const strings: string[] = [
 
   // win by hand rank
   // histogram analysis not required
-  "AAAQK 24567 22984",        //10 THREEOFAKIND STRAIGHT PAIR           | a
+  "AAAQK 24567 22984",        //10 THREEOFAKIND HIGHCARD PAIR           | a
 
   // tie by hand rank
   // winner determined with histogram analysis
@@ -44,6 +44,7 @@ export const strings: string[] = [
 ];
 
 export const histograms: Histogram[][] = [
+
   [ //0 "24578 2578A"
     [ new HistogramItem(8,1), new HistogramItem(7,1), new HistogramItem(5,1), new HistogramItem(4,1), new HistogramItem(2,1)],
     [ new HistogramItem(14,1), new HistogramItem(8,1), new HistogramItem(7,1), new HistogramItem(5,1), new HistogramItem(2,1)]
@@ -61,8 +62,8 @@ export const histograms: Histogram[][] = [
     [ new HistogramItem(6,3), new HistogramItem(13,1), new HistogramItem(11,1)]
   ],
   [ //4 "A2345 TJQKA"
-    [ new HistogramItem(14,1), new HistogramItem(5,1), new HistogramItem(4,1), new HistogramItem(3,1), new HistogramItem(2,1)],
-    [ new HistogramItem(10,1), new HistogramItem(11,1), new HistogramItem(12,1), new HistogramItem(13,1), new HistogramItem(14,1)]
+    [ new HistogramItem(5,1), new HistogramItem(4,1), new HistogramItem(3,1), new HistogramItem(2,1), new HistogramItem(1,1)],
+    [ new HistogramItem(14,1), new HistogramItem(13,1), new HistogramItem(12,1), new HistogramItem(11,1), new HistogramItem(10,1)]
   ],
   [ //5 "33322 333AA"
     [ new HistogramItem(3,3), new HistogramItem(2,2)],
@@ -78,7 +79,7 @@ export const histograms: Histogram[][] = [
   ],
   [ //8 "99865 A2345"
     [ new HistogramItem(9,2), new HistogramItem(8,1), new HistogramItem(6,1), new HistogramItem(5,1)],
-    [ new HistogramItem(14,1), new HistogramItem(5,1), new HistogramItem(4,1), new HistogramItem(3,1), new HistogramItem(2,1)]
+    [ new HistogramItem(5,1), new HistogramItem(4,1), new HistogramItem(3,1), new HistogramItem(2,1), new HistogramItem(1,1) ]
   ],
   [ //9 "33445 33445"
     [ new HistogramItem(4,2), new HistogramItem(3,2), new HistogramItem(5,1)],
@@ -116,8 +117,8 @@ export const enums: handEnum[][] =
   [hand.PAIR,         hand.STRAIGHT],     //8 "99865 A2345"
   [hand.TWOPAIR,      hand.TWOPAIR],      //9 "33445 33445"
 
-  [hand.THREEOFAKIND, hand.STRAIGHT,      hand.PAIR],           //10 "AAAQK 24567 22984"      
-  [hand.THREEOFAKIND, hand.THREEOFAKIND,  hand.TWOPAIR],        //11 "AAAQK JJJQK 22984"      
+  [hand.THREEOFAKIND, hand.HIGHCARD,      hand.PAIR],           //10 "AAAQK 24567 22984"      
+  [hand.THREEOFAKIND, hand.THREEOFAKIND,  hand.PAIR],           //11 "AAAQK JJJQK 22984"      
   [hand.HIGHCARD, hand.HIGHCARD, hand.HIGHCARD, hand.HIGHCARD]  //12 "A2346 A2346 A2346 A2346"
 ];
 
