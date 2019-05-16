@@ -76,17 +76,14 @@ export class Preprocessor {
 
   // transform card values into numerical values
   private cardsToNumeric(hand: string[]): number[] {
-    const numeric: number[] = [];
-
-    hand.map( card => {
-      numeric.push(parseInt(card) || cardEnum[card]);
+    return hand.map( card => {
+      return parseInt(card) || cardEnum[card];
     });
-
-    return numeric;
   }
 
   // represent frequency of card values as histogram elements
   private numericToHistogram(hand: number[]): Histogram {
+    
     const histogram: Histogram = [];
 
     while (hand.length > 0) {
@@ -98,8 +95,9 @@ export class Preprocessor {
         }
       }
       histogram.push(new HistogramItem(value, quantity));
-      hand = hand.filter( c => c !== value);
 
+      //discard counted cards
+      hand = hand.filter( c => c !== value);
     }
 
     return histogram;
@@ -120,7 +118,7 @@ export class Preprocessor {
     });
   }
 
-  // input histogram must be sorted
+  // input histogram must be sorted descending (frequency,value)
   private catchEdgeCase_StraightLowAce(histogram: Histogram): Histogram {
     if (
       histogram[0] && histogram[0].value === 14 &&
