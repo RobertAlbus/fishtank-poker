@@ -14,16 +14,19 @@ export class HandEvaluator {
   }
 
   public evaluateAll(): void {
+
     const results = this.computeWinners(this.state.histograms);
+
     this.state.winnerStrings = results.winners;
     this.state.enums = results.enums;
   }
 
   public computeWinners(rounds: Histogram[][]): {winners: string[], enums: handEnum[][]} {
+    
     const winners: string[] = [];
     const enums: handEnum[][] = [];
 
-    rounds.map( round => {
+    rounds.forEach( round => {
       const result = this.computeWinner(round);
       winners.push(result.winner);
       enums.push(result.enums);
@@ -34,21 +37,14 @@ export class HandEvaluator {
 
   public computeWinner(histograms: Histogram[]): { enums: handEnum[], winner: string } {
 
-    const enums: handEnum[] = [];
-    histograms.map( histogram => {
-      // generate signature
+    const enums: handEnum[] = histograms.map( histogram => {
       const signature = this.histogramToSignature(histogram);
-      // determine enum from signature
-      enums.push(this.signatureToHandEnum(signature, histogram));
+      return this.signatureToHandEnum(signature, histogram);
     });
 
-    let winnerIndex: number[];
-    if (this.getWinnerFromEnums(enums).length > 0) {
-      winnerIndex = this.getWinnerFromEnums(enums);
-    } else {
-      winnerIndex = this.getWinnerFromHistograms(histograms, enums);
-    }
-
+    let winnerIndex: number[] = 
+    this.getWinnerFromEnums(enums) ||
+    this.getWinnerFromHistograms(histograms, enums);
 
     const winner: string = this.playerIndexToPlayerLetter(...winnerIndex);
 
@@ -64,7 +60,6 @@ export class HandEvaluator {
     if (quantityOfHighestHand === 1) {
       return [enums.indexOf(highestHand)];
     }
-    return [];
   }
 
   // used to determine who wins or ties when
@@ -75,36 +70,16 @@ export class HandEvaluator {
     // aka the type of hand that wins
     const highestHand = Math.max(...enums);
 
-    let contenders: {
-      index?: number,
-      handRank?: handEnum,
-      histogram?: Histogram
-    }[]; // TODO initialize here and remove initialization logic @ line 87 & 94
-    // create filtered list of: histograms tied by signature && their index
-    // needed if n>2 players because it's possible that not all players have a tied handEnum
-    enums.map( (e, index) => {
-
-      if (e === highestHand) {
-        if (contenders !== undefined ) {
-          // if initialized => push
-          contenders.push({
+    let contenders = enums.map( (e, index) => {
+          return {
             index: index,
             handRank: enums[index],
             histogram: histograms[index]
-          });
-        } else {
-          // else => initialize
-          contenders = [ {
-            index: index,
-            handRank: enums[index],
-            histogram: histograms[index]
-          } ];
-        }
-      }
+          };
     });
 
-    // eliminate contenders with lowest card rank for a given histogram position
-    // until 1 left or all positions evaluate to a tie
+    // filter contenders for highest card rank for a given histogram position
+    // until 1 contender left or all positions evaluate to a tie
     // ie two hands of the same handEnum, the higher card wins
 
     // outer for loop iterates /through/ histograms depthwise
@@ -112,47 +87,34 @@ export class HandEvaluator {
     const histogramDepth = contenders[0].histogram.length;
     for (let depth = 0; depth < histogramDepth; ++depth) {
 
-      // inner map iterates across histograms
-      // to find highest card value
-      let highestCardValue = 0;
-      contenders.map( c => {
-        const currentValue = c.histogram[depth].value;
-        if (highestCardValue < currentValue) {
-          highestCardValue = currentValue;
-        }
-      });
+      // find highest card value for each player at ths histogram position
+      let highestCardValue = Math.max( ... contenders.map( c => { return c.histogram[depth].value } ) );
 
       // filter contenders to exclude contenders with
       // card value lower than highest for this given index
       contenders = contenders.filter( c => {
-        const currentValue = c.histogram[depth].value;
-        return currentValue === highestCardValue;
-        // return c.histogram[depth].value === highestCardValue
+        const currentCardValue = c.histogram[depth].value;
+        return currentCardValue === highestCardValue;
       });
 
       // short circuit
-      // winner found
+      // if sole winner found
       if (contenders.length === 1) {
         break;
       }
     }
 
     // map the indexes of winner(s) to array for returning
-    const winners: number[] = [];
-    contenders.map( c => {
-      winners.push(c.index);
+    return contenders.map( c => {
+      return c.index;
     });
-    return winners;
   }
 
   private histogramToSignature(histogram: Histogram): string {
 
-    let signature = '';
-    histogram.map( item => {
-      signature += item.quantity.toString();
-    });
-
-    return signature.trim();
+    return histogram.map( item => {
+      return item.quantity;
+    }).join('');
   }
 
   private signatureToHandEnum(signature: string, histogram: Histogram): handEnum {
@@ -192,12 +154,11 @@ export class HandEvaluator {
     args.map( arg => {
       if (arg < 26) {
         output += String.fromCharCode(arg + a);
-      }
-      if (26 < arg) {
+      } else if (26 < arg) {
         const nn: number = arg / 26;
-        output +=  '|' + String.fromCharCode(nn + a - 1) + String.fromCharCode( (arg % 26 - 1) + a); + '|';
+        output +=  ' |' + String.fromCharCode(nn + a - 1) + String.fromCharCode( (arg % 26 - 1) + a); + '| ';
       }
-    } );
+    });
 
     return output;
   }
