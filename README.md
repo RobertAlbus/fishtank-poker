@@ -75,8 +75,7 @@ Sample Input
 Sample Output
 * FULLHOUSE
 * STRAIGHT a
-* PAIR
-* PAIR b
+* PAIR PAIR b
 * TWOPAIR THREEOFAKIND a
 * PAIR PAIR ab
 * STRAIGHT STRAIGHT b
@@ -121,7 +120,7 @@ Parses hands into histograms and makes decisions based on those histograms.
 ### Program Flow
 1. Get input
 2. Save input to state machine
-3. Preprocess input strings into useful format
+3. Preprocess input strings into useful format and save to state machine
 4. Evaluate winners
 5. Save winners to state machine
 6. Output winners
@@ -181,7 +180,7 @@ Histograms => Winners
 
     filter out hands that are not tied
 
-    filter hands for highest card-value for histogram\[i]
+    filter hands for highest card-value for each histogram
 
     recurse until 1 contender left or histograms are entirely identical
 
@@ -196,7 +195,7 @@ Histograms => Winners
 --------
 ## Deficiency List
 
-### Does not accept wildcards *
+### Does not accept wildcards ' * '
 It would be possible to account for wildcards in a subsequent version.
 
 Solution A:
@@ -218,17 +217,6 @@ Solution B:
 2. Sort input hands
 3. Find index of each sorted input hand
 4. Compare the indexes of hands, best index wins or tie
-
-How to find index of a given hand:
-1. Compare hand\[card] to table\[i]\[card]
-
-    Hit  : Compare hand\[card+1] to table\[i]\[card+1]
-
-    Miss : Compare hand\[card] to table\[i+1]\[card]
-
-    Until : i === hand.length-1 (Match)
-
-2. See 1.
 
 --------
 ## Summary
@@ -267,15 +255,15 @@ Preprocess:
 3. Cards            => numeric values
 4. Numeric values   => histogram {card value, card frequency}
 5. Histogram        => sorted histogram
-6. Sorted histogram => catch edge case: low-ace
+6. Sorted histogram => catch edge case: low-ace straight
 
 Hand Comparator:
 1. Histogram => histogram signature
 2. Compare signatures
 
-    short circuit if obvious winner by histogram signature
+    short circuit to 4 if obvious winner by histogram signature
 
-3. Compare histogram\[i]
+3. Compare histograms
 
     filter out contenders until 1 contender left OR histograms are identical
     
@@ -287,6 +275,6 @@ Hand Comparator:
 ### Alternate Solutions
 1. Lookup-based
 2. Sorted table of all possible sorted hands
-3. Compare indexes
+3. Find and compare indexes
 
 --------
